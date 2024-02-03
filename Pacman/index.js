@@ -16,11 +16,13 @@ const scoreTable = document.querySelector('#score');
 const startButton = document.querySelector('#start-button');
 // Game constants
 const POWER_PILL_TIME = 10000; // ms
-const GLOBAL_SPEED = 80; // ms
 const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
+
 // Initial setup
+let global_speed = 80; // ms
 let score = 0;
 let timer = null;
+let degrees = 0;
 let gameWin = false;
 let powerPillActive = false;
 let powerPillTimer = null;
@@ -68,6 +70,10 @@ function checkCollision(pacman, ghosts) {
 }
 
 function gameLoop(pacman, ghosts) {
+  // Rotate world
+  degrees += 1;
+  degrees = degrees % 360;
+  gameGrid.style.transform = 'rotate(' + degrees + 'deg)';
   // 1. Move Pacman
   gameBoard.moveCharacter(pacman);
   // 2. Check Ghost collision on the old positions
@@ -113,6 +119,9 @@ function gameLoop(pacman, ghosts) {
   }
   // 9. Show new score
   scoreTable.innerHTML = score;
+
+  // 10. Set timeout for the next game loop
+  setTimeout(() => gameLoop(pacman, ghosts), global_speed);
 }
 
 function startGame() {
@@ -128,9 +137,12 @@ function startGame() {
 
   const pacman = new Pacman(2, 287);
   gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
-  document.addEventListener('keydown', (e) =>
-    pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard))
-  );
+  document.addEventListener('keydown', (e) => {
+    if (e.keyCode === 32) {
+      global_speed = global_speed === 80 ? 640 : 80;
+    }
+    pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard));
+  });
 
   const ghosts = [
     new Ghost(5, 188, randomMovement, OBJECT_TYPE.BLINKY),
@@ -140,7 +152,7 @@ function startGame() {
   ];
 
   // Gameloop
-  timer = setInterval(() => gameLoop(pacman, ghosts), GLOBAL_SPEED);
+  setTimeout(() => gameLoop(pacman, ghosts), global_speed);
 }
 
 // Initialize game
