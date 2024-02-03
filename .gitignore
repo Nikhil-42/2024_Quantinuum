@@ -1,7 +1,9 @@
 .venv
+.cache
 .DS_STORE
 .ipynb_checkpoints
 *.qasm
 tket_intro.ipynb
 plotting.py
+node_modules/*
 __pycache__
