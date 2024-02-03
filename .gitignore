@@ -6,4 +6,5 @@
 tket_intro.ipynb
 plotting.py
 node_modules/*
+dist/*
 __pycache__
