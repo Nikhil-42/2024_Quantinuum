@@ -2,6 +2,7 @@ from fastapi import FastAPI
 #from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 from scipy.stats import unitary_group
+import generate_seed
 
 app = FastAPI()
 
@@ -56,3 +57,8 @@ async def calculate_eigenvalues(matrix: matrix_json):
 	print(matrix)
 	breakpoint()
 	return {"TODO": "TODO"}
+
+@app.post("/random_numbers/")
+async def random_numbers():
+	return {"numbers": generate_seed.generate_numbers()}
+

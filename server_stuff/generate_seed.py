@@ -6,28 +6,15 @@ from pytket.extensions.nexus import QuantinuumConfig
 from pytket.extensions.nexus import NexusBackend
 
 # Create Circuit
-qc_seed = Circuit(15)
-qc_seed.H(0)
-qc_seed.H(1)
-qc_seed.H(2) 
-qc_seed.H(3)
-qc_seed.H(4)
-qc_seed.H(5)
-qc_seed.H(6)
-qc_seed.H(7)
-qc_seed.H(8)
-qc_seed.H(9)
-qc_seed.H(10)
-qc_seed.H(11)
-qc_seed.H(12)
-qc_seed.H(13)
-qc_seed.H(14)
+qc_seed = Circuit(16)
+for i in range(16):
+    qc_seed.H(i)
 qc_seed.measure_all()
-render_circuit_jupyter(qc_seed)
+# render_circuit_jupyter(qc_seed)
 
 # Create Project on Nexus
 nexus = Nexus()
-my_project = nexus.new_project(name=f"Random Number Generator - {datetime.now()}")
+my_project = nexus.get_project_by_name(name=f"My Project")
 
 # Create job configuration
 configuration = QuantinuumConfig(device_name="H1-1LE", user_group="iQuHACK_2024")
@@ -39,7 +26,7 @@ backend = NexusBackend(configuration, project=my_project)
 compiled_circuit = backend.get_compiled_circuit(qc, optimisation_level=2)
 
 
-def generate_numbers():
+def generate_numbers() -> list[int]:
     numbers = []
     
     # Run the compiled circuit
@@ -57,7 +44,7 @@ def generate_numbers():
     list(result.get_distribution().keys())
     numbers = []
     for j in range(5):
-        bits = [list(result.get_distribution().keys())[j][i] for i in range(15)]
+        bits = [list(result.get_distribution().keys())[j][i] for i in range(16)]
         bit_string = ''
         for bit in bits:
             bit_string += str(bit)
