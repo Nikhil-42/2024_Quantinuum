@@ -1,10 +1,11 @@
-.venv
-.cache
+**/node_modules
+**/dist
+**/build
+**/.cache
+**/.venv
 .DS_STORE
 .ipynb_checkpoints
 *.qasm
 tket_intro.ipynb
 plotting.py
-node_modules/*
-dist/*
 __pycache__
