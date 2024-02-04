@@ -1,5 +1,10 @@
 import { OBJECT_TYPE, DIRECTIONS } from './setup.js';
 
+let QMSTATEVECTOR = [math.matrix([math.complex(1,0),
+  math.complex(0,0)])];
+let BLOCHSPHERE = gen_bloch_sphere();
+let STATEARROW = gen_vector_plot(state2vector(QMSTATEVECTOR[QMSTATEVECTOR.length - 1]));
+init_plotting(BLOCHSPHERE.concat(STATEARROW).concat([]));
 
 let current_matrix = null;
 let current_eigenvector = null;
@@ -82,5 +87,48 @@ class Pacman {
     this.dir = dir;
   };
 }
+
+
+// Function to draw an arrow representing a complex number at position (x, y) on the canvas
+function drawArrow(ctx, x, y, angle, magnitude) {
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + Math.cos(angle) * magnitude, y - Math.sin(angle) * magnitude);
+  ctx.moveTo(x + Math.cos(angle) * magnitude, y - Math.sin(angle) * magnitude);
+  ctx.lineTo(x + Math.cos(angle - Math.PI / 10) * (magnitude - 10), y - Math.sin(angle - Math.PI / 10) * (magnitude - 10)); // Adjust arrowhead length
+  ctx.moveTo(x + Math.cos(angle) * magnitude, y - Math.sin(angle) * magnitude);
+  ctx.lineTo(x + Math.cos(angle + Math.PI / 8) * (magnitude - 10), y - Math.sin(angle + Math.PI / 10) * (magnitude - 10)); // Adjust arrowhead length
+  ctx.stroke();
+}
+
+// Function to display the complex matrix as arrows on the canvas
+function displayComplexMatrix(matrix) {
+  var canvas = document.getElementById('matrixCanvas');
+  var ctx = canvas.getContext('2d');
+
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Set white color and thicker line for arrows
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = 4; // Set thicker line width
+  ctx.fillStyle = 'white';
+
+  // Draw matrix brackets
+  ctx.font = '100px Arial';
+  ctx.fillText('[', 0, 100);
+  ctx.fillText(']', 170, 100);
+
+  // Draw arrows for each complex element in the matrix
+  for (var i = 0; i < matrix['real_part'].length; i++) {
+    for (var j = 0; j < matrix['real_part'][i].length; j++) {
+      var complexNumber = {'real': matrix['real_part'][i][j], 'imaginary': matrix['imag_part'][i][j]};
+      var angle = Math.atan2(complexNumber.imaginary, complexNumber.real);
+      var magnitude = Math.sqrt(complexNumber.real * complexNumber.real + complexNumber.imaginary * complexNumber.imaginary);
+      drawArrow(ctx, 70 + j * 100, 50 + i * 50, angle, magnitude * 50); // Scale the magnitude
+    }
+  }
+}
+
 
 export default Pacman;
