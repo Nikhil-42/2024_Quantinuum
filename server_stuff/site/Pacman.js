@@ -77,6 +77,7 @@ class Pacman {
                 console.log("Next Phase: " + nextPhase);
 
                 phase += 90 * key;
+                phase %= 360;
                 // dir = phase * i^key
                 console.log(phase);
                 // console.log

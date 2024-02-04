@@ -19,7 +19,7 @@ const POWER_PILL_TIME = 10000; // ms
 const gameBoard = GameBoard.createGameBoard(gameGrid, LEVEL);
 
 // Initial setup
-let global_speed = 80; // ms
+let global_speed = 80*3; // ms
 let score = 0;
 let timer = null;
 let degrees = 0;
@@ -138,9 +138,6 @@ function startGame() {
   const pacman = new Pacman(2, 287);
   gameBoard.addObject(287, [OBJECT_TYPE.PACMAN]);
   document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 32) {
-      global_speed = global_speed === 80 ? 640 : 80;
-    }
     pacman.handleKeyInput(e, gameBoard.objectExist.bind(gameBoard));
   });
 
@@ -153,7 +150,7 @@ function startGame() {
 
   // Gameloop
   // setTimeout(() => gameLoop(pacman, ghosts), global_speed);
-  setInterval(() => gameLoop(pacman, ghosts), global_speed);
+  setInterval(() => gameLoop(pacman, ghosts), 500);
 }
 
 // Initialize game
