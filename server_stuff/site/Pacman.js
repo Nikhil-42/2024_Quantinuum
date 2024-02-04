@@ -1,5 +1,8 @@
 import { OBJECT_TYPE, DIRECTIONS } from './setup.js';
 
+let current_matrix = null;
+let current_eigenvector = null;
+
 class Pacman {
   constructor(speed, startPos) {
     this.pos = startPos;
@@ -48,8 +51,26 @@ class Pacman {
   handleKeyInput = (e, objectExist) => {
     let dir;
 
-    if (e.keyCode >= 37 && e.keyCode <= 40) {
+    if (e.keyCode >= 48 && e.keyCode <= 51) {
+      let key = e.keyCode-48
+      console.log(key)
+      fetch("http://localhost:8000/generate_matrix").then(response => response.json()).then((r)=>{
+        console.log(r);
+        // ui.js
+
+        let QMSTATEVECTOR = [math.matrix([math.complex(r.eigenvector_real[0],r.eigenvector_imag[0]),
+          math.complex(r.eigenvector_real[1],r.eigenvector_imag[1])])];
+        let BLOCHSPHERE = gen_bloch_sphere();
+        let STATEARROW = gen_vector_plot(state2vector(QMSTATEVECTOR[QMSTATEVECTOR.length - 1]));
+        init_plotting(BLOCHSPHERE.concat(STATEARROW).concat([]));
+      })
+
+      //if(keyCode == 0)
       dir = DIRECTIONS[e.key];
+
+      //fetch new matrix and vector
+      //set new matrix and vector graphics
+      //store them in a global variable here for the next keypress
     } else {
       return;
     }
