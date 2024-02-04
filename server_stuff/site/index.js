@@ -125,6 +125,9 @@ function gameLoop(pacman, ghosts) {
 }
 
 function startGame() {
+
+new Audio('Bach Sphere Example 1.mp3').play()
+  
   //playAudio(soundGameStart);
 
   gameWin = false;
