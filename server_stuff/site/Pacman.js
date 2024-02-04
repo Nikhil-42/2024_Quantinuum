@@ -1,5 +1,6 @@
 import { OBJECT_TYPE, DIRECTIONS } from './setup.js';
 
+
 let current_matrix = null;
 let current_eigenvector = null;
 
@@ -55,6 +56,7 @@ class Pacman {
       let key = e.keyCode-48
       console.log(key)
       fetch("http://localhost:8000/generate_matrix").then(response => response.json()).then((r)=>{
+        displayComplexMatrix(r);
         console.log(r);
         // ui.js
 
