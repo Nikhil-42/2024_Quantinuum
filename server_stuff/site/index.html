@@ -37,12 +37,15 @@
   </head>
   <body>
     <div id="wrapper">
-      <div id="game"></div>
-      <div id="score"></div>
+
+
       <div style="width: 100%; display: table;">
         <div style="display: table-row">
-          <div style="width: 600px; display: table-cell;"> <button>i^0</button><button>i^0</button><button>i^0</button><button>i^0</button> </div>
-          <div style="display: table-cell;"> Matrix goes here </div>
+          <div style="width: 100px; display: table-cell;"> <button>i^0</button><button>i^1</button><button>i^2</button><button>i^3</button> </div>
+          <div style="display: table-cell;"> <canvas id="matrixCanvas" width="250" height="200"></canvas> </div>
+          <div style="display: table-cell;">
+            <div id="game"></div> <div id="score" style="transform: translate(0px,-320px);"></div>
+          </div>
           <div style="display: table-cell;">
 
             <div class="container" > <!--style="min-width:120px"-->
@@ -55,7 +58,7 @@
               <div class="row lighten-5 grey">
                 <div class="col s6">
 
-                  <div id="myDiv" class="card js-plotly-plot" style="padding-bottom: 100%;"><div class="plot-container plotly"><div class="user-select-none svg-container" style="position: relative; width: 100%; height: 100%;"><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="577.5" height="577.5" style="background: rgb(255, 255, 255);"><defs id="defs-11103d"><g class="clips"></g><g class="gradients"></g><g class="patterns"></g></defs><g class="bglayer"></g><g class="draglayer"></g><g class="layer-below"><g class="imagelayer"></g><g class="shapelayer"></g></g><g class="cartesianlayer"></g><g class="polarlayer"></g><g class="smithlayer"></g><g class="ternarylayer"></g><g class="geolayer"></g><g class="funnelarealayer"></g><g class="pielayer"></g><g class="iciclelayer"></g><g class="treemaplayer"></g><g class="sunburstlayer"></g><g class="glimages"></g></svg><div class="gl-container"><div id="scene" style="position: absolute; left: 0px; top: 0px; height: 578px; width: 578px;"><svg style="position: absolute; left: 0px; top: 0px; height: 100%; width: 100%; z-index: 20; pointer-events: none;" viewBox="0 0 578 578" width="578" height="578"></svg><canvas width="1156" height="1156" style="position: absolute; left: 0px; top: 0px; width: 578px; height: 578px;"></canvas></div></div><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="577.5" height="577.5"><defs id="topdefs-11103d"><g class="clips"></g></defs><g class="indicatorlayer"></g><g class="layer-above"><g class="imagelayer"></g><g class="shapelayer"></g></g><g class="selectionlayer"></g><g class="infolayer"><g class="g-gtitle"></g><g class="annotation" data-index="0" style="opacity: 0.4;"><g class="annotation-text-g" transform="rotate(0,538.5,568.5)"><g class="cursor-pointer" transform="translate(499,559)"><rect class="bg" style="stroke-width: 1px; stroke: rgb(0, 0, 0); stroke-opacity: 0; fill: rgb(0, 0, 0); fill-opacity: 0;" x="0.5" y="0.5" width="78" height="18"></rect><text class="annotation-text" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 12px; fill: rgb(68, 68, 68); fill-opacity: 1; white-space: pre;" text-anchor="middle" data-unformatted="bloch.kherb.io" data-math="N" x="39.5830078125" y="13.25">bloch.kherb.io</text></g></g></g></g><g class="menulayer"></g><g class="zoomlayer"></g></svg><div class="modebar-container" style="position: absolute; top: 0px; right: 0px; width: 100%;"></div><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="577.5" height="577.5"><g class="hoverlayer"></g></svg></div></div><noscript>Javascript necessary</noscript></div>
+                  <div id="myDiv" class="card js-plotly-plot" style="width: 300px; padding-bottom: 100%;"><div class="plot-container plotly"><div class="user-select-none svg-container" style="position: relative; width: 100%; height: 100%;"><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="577.5" height="577.5" style="background: rgb(255, 255, 255);"><defs id="defs-11103d"><g class="clips"></g><g class="gradients"></g><g class="patterns"></g></defs><g class="bglayer"></g><g class="draglayer"></g><g class="layer-below"><g class="imagelayer"></g><g class="shapelayer"></g></g><g class="cartesianlayer"></g><g class="polarlayer"></g><g class="smithlayer"></g><g class="ternarylayer"></g><g class="geolayer"></g><g class="funnelarealayer"></g><g class="pielayer"></g><g class="iciclelayer"></g><g class="treemaplayer"></g><g class="sunburstlayer"></g><g class="glimages"></g></svg><div class="gl-container"><div id="scene" style="position: absolute; left: 0px; top: 0px; height: 578px; width: 578px;"><svg style="position: absolute; left: 0px; top: 0px; height: 100%; width: 100%; z-index: 20; pointer-events: none;" viewBox="0 0 578 578" width="578" height="578"></svg><canvas width="1156" height="1156" style="position: absolute; left: 0px; top: 0px; width: 578px; height: 578px;"></canvas></div></div><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="577.5" height="577.5"><defs id="topdefs-11103d"><g class="clips"></g></defs><g class="indicatorlayer"></g><g class="layer-above"><g class="imagelayer"></g><g class="shapelayer"></g></g><g class="selectionlayer"></g><g class="infolayer"><g class="g-gtitle"></g><g class="annotation" data-index="0" style="opacity: 0.4;"><g class="annotation-text-g" transform="rotate(0,538.5,568.5)"><g class="cursor-pointer" transform="translate(499,559)"><rect class="bg" style="stroke-width: 1px; stroke: rgb(0, 0, 0); stroke-opacity: 0; fill: rgb(0, 0, 0); fill-opacity: 0;" x="0.5" y="0.5" width="78" height="18"></rect><text class="annotation-text" style="font-family: &quot;Open Sans&quot;, verdana, arial, sans-serif; font-size: 12px; fill: rgb(68, 68, 68); fill-opacity: 1; white-space: pre;" text-anchor="middle" data-unformatted="bloch.kherb.io" data-math="N" x="39.5830078125" y="13.25">bloch.kherb.io</text></g></g></g></g><g class="menulayer"></g><g class="zoomlayer"></g></svg><div class="modebar-container" style="position: absolute; top: 0px; right: 0px; width: 100%;"></div><svg class="main-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="577.5" height="577.5"><g class="hoverlayer"></g></svg></div></div><noscript>Javascript necessary</noscript></div>
                   <a class="waves-effect waves-light btn-small" onclick="export_png()" style="margin-bottom: 1em;">Download</a>
 
 
@@ -222,7 +225,7 @@
           </div>
         </div>
       </div>
-      <button id="start-button">Start Game</button>
+      <button id="start-button" style="transform: translate(0px,-320px);">Start Game</button>
     </div>
     <script src="bloch_controls.js"></script>
   </body>

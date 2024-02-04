@@ -158,3 +158,52 @@ function startGame() {
 
 // Initialize game
 startButton.addEventListener('click', startGame);
+
+
+// Define the complex matrix
+var x = [[{real: -0.75732054, imaginary: -0.2738093}, {real: -0.57956813, imaginary: 0.12487934}],
+[{real: 0.51218892, imaginary: 0.29859097}, {real: -0.804903, imaginary: 0.02524081}]];
+
+// Function to draw an arrow representing a complex number at position (x, y) on the canvas
+function drawArrow(ctx, x, y, angle, magnitude) {
+ctx.beginPath();
+ctx.moveTo(x, y);
+ctx.lineTo(x + Math.cos(angle) * magnitude, y - Math.sin(angle) * magnitude);
+ctx.moveTo(x + Math.cos(angle) * magnitude, y - Math.sin(angle) * magnitude);
+ctx.lineTo(x + Math.cos(angle - Math.PI / 10) * (magnitude - 10), y - Math.sin(angle - Math.PI / 10) * (magnitude - 10)); // Adjust arrowhead length
+ctx.moveTo(x + Math.cos(angle) * magnitude, y - Math.sin(angle) * magnitude);
+ctx.lineTo(x + Math.cos(angle + Math.PI / 8) * (magnitude - 10), y - Math.sin(angle + Math.PI / 10) * (magnitude - 10)); // Adjust arrowhead length
+ctx.stroke();
+}
+
+// Function to display the complex matrix as arrows on the canvas
+function displayComplexMatrix(matrix) {
+var canvas = document.getElementById('matrixCanvas');
+var ctx = canvas.getContext('2d');
+
+// Clear canvas
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+// Set white color and thicker line for arrows
+ctx.strokeStyle = 'white';
+ctx.lineWidth = 4; // Set thicker line width
+ctx.fillStyle = 'white';
+
+// Draw matrix brackets
+ctx.font = '100px Arial';
+ctx.fillText('[', 0, 100);
+ctx.fillText(']', 170, 100);
+
+// Draw arrows for each complex element in the matrix
+for (var i = 0; i < matrix.length; i++) {
+for (var j = 0; j < matrix[i].length; j++) {
+var complexNumber = matrix[i][j];
+var angle = Math.atan2(complexNumber.imaginary, complexNumber.real);
+var magnitude = Math.sqrt(complexNumber.real * complexNumber.real + complexNumber.imaginary * complexNumber.imaginary);
+drawArrow(ctx, 70 + j * 100, 50 + i * 50, angle, magnitude * 50); // Scale the magnitude
+}
+}
+}
+
+// Call the function to display the complex matrix
+displayComplexMatrix(x);
