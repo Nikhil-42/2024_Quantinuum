@@ -3,6 +3,7 @@ from fastapi import FastAPI
 import numpy as np
 from fastapi.staticfiles import StaticFiles
 from scipy.stats import unitary_group
+# from qpe import get_stuff, return_direction
 import generate_seed
 from BachSphere import composition
 
@@ -45,12 +46,17 @@ async def read_index():
 
 @app.get("/generate_matrix")
 async def generate_matrix():
+	# uc, dc, um, e = get_stuff()
+	# direction = return_direction(uc, dc)
 	the_matrix = unitary_group.rvs(2)
 	eigenvalues, eigenvectors = np.linalg.eig(the_matrix)
 	i = np.random.choice([0,1])  # pick one of the eigenvalue eigenvector pairs
 	eigenvalue, eigenvector = eigenvalues[i],eigenvectors.T[i]
 	# sending components seperately because
 	# json doesn't support complex numbers
+	# the_matrix = um
+	# eigenvector = e
+	# eigenvalue = {'right': 1, 'up': 1j, 'left': -1, 'down': -1j}[direction]
 	print(eigenvalue.real)
 	the_matrix_parts = {"real_part": the_matrix.real.tolist(),
 	'imag_part':the_matrix.imag.tolist(),
