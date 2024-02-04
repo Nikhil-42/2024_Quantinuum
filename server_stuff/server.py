@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 #from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
+from fastapi.staticfiles import StaticFiles
 from scipy.stats import unitary_group
 import generate_seed
 
@@ -8,23 +9,30 @@ app = FastAPI()
 
 from pydantic import BaseModel
 
-'''
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # This allows all origins
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
-)'''
-
 class matrix_json(BaseModel):
 	real_part: list[list]
 	imag_part: list[list]
 
-from starlette.responses import FileResponse 
+from fastapi.staticfiles import StaticFiles
+from starlette.responses import FileResponse, Response
+from typing import Callable
+from starlette.types import Scope, Receive, Send
 @app.get("/")
 async def read_index():
 	return FileResponse('index.html')
+
+class CustomStaticFiles(StaticFiles):
+	async def get_response(self, path: str, scope: Scope) -> Response:  # Adjust the return type
+		full_path, stat_result = super().lookup_path(path)
+		if full_path.endswith(".js"):
+			# Serve with 'application/javascript' MIME type if it's a JS file
+			return FileResponse(full_path, media_type='application/javascript')
+		else:
+			# Fall back to the default handling for other file types
+			return await super().get_response(path, scope)
+
+
+app.mount("/site", CustomStaticFiles(directory="site", html=True), name="site")
 
 @app.get("/plotly-2.16.1.min.js")
 async def read_index():
