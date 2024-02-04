@@ -48,7 +48,7 @@ async def generate_matrix():
 	the_matrix = unitary_group.rvs(2)
 	eigenvalues, eigenvectors = np.linalg.eig(the_matrix)
 	i = np.random.choice([0,1])  # pick one of the eigenvalue eigenvector pairs
-	eigenvalue, eigenvector = eigenvalues[i],eigenvectors[i]
+	eigenvalue, eigenvector = eigenvalues[i],eigenvectors.T[i]
 	# sending components seperately because
 	# json doesn't support complex numbers
 	print(eigenvalue.real)

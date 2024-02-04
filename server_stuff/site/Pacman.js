@@ -8,6 +8,7 @@ init_plotting(BLOCHSPHERE.concat(STATEARROW).concat([]));
 
 let current_matrix = null;
 let current_eigenvector = null;
+let nextPhase = 0;
 
 class Pacman {
     constructor(speed, startPos) {
@@ -61,6 +62,7 @@ class Pacman {
             let key = e.keyCode - 48
             fetch("http://localhost:8000/generate_matrix").then(response => response.json()).then((r) => {
                 displayComplexMatrix(r);
+                console.log(r)
 
                 let QMSTATEVECTOR = [math.matrix([math.complex(r.eigenvector_real[0], r.eigenvector_imag[0]),
                     math.complex(r.eigenvector_real[1], r.eigenvector_imag[1])])];
@@ -68,11 +70,13 @@ class Pacman {
                 let STATEARROW = gen_vector_plot(state2vector(QMSTATEVECTOR[QMSTATEVECTOR.length - 1]));
                 init_plotting(BLOCHSPHERE.concat(STATEARROW).concat([]));
 
-
                 // eigenvalue_real r.eigenvalue_imag => phase of eigenvalue
-                let phase = math.atan2(r.eigenvalue_imag, r.eigenvalue_real) * 180 / math.PI;
+                let phase = nextPhase;
+                nextPhase = (math.atan2(r.eigenvalue_imag, r.eigenvalue_real) * 180 / math.PI + 360) % 360;
+                console.log("Phase: " + phase);
+                console.log("Next Phase: " + nextPhase);
+
                 phase += 90 * key;
-                phase %= 360;
                 // dir = phase * i^key
                 console.log(phase);
                 // console.log
