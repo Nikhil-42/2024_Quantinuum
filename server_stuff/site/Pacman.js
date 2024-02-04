@@ -90,7 +90,7 @@ class Pacman {
 
                 //if(keyCode == 0)
                 dir = DIRECTIONS[direction];
-                console.log(direction)
+                document.getElementById('last_dir').innerHTML = direction;
                 const nextMovePos = this.pos + dir.movement;
                 if (objectExist(nextMovePos, OBJECT_TYPE.WALL)) return;
                 this.dir = dir;
