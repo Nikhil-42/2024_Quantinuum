@@ -70,32 +70,30 @@ class Pacman {
         let BLOCHSPHERE = gen_bloch_sphere();
         let STATEARROW = gen_vector_plot(state2vector(QMSTATEVECTOR[QMSTATEVECTOR.length - 1]));
         init_plotting(BLOCHSPHERE.concat(STATEARROW).concat([]));
+
+
+        // eigenvalue_real r.eigenvalue_imag => phase of eigenvalue
+        let phase = math.atan2(r.eigenvalue_imag, r.eigenvalue_real) * 180 / math.PI;
+        phase += 90 * key;
+        phase %= 360;
+        // dir = phase * i^key
+        console.log(phase);
+        // console.log
+        // Map to key code
+        let direction;
+        if ( phase >= 315 || phase < 45) {
+          direction = 'ArrowRight';
+        } else if (phase >= 45 && phase < 135) {
+          direction = 'ArrowUp';
+        } else if (phase >= 135 && phase < 225) {
+          direction = 'ArrowLeft';
+        } else if (phase >= 225 && phase < 315) {
+          direction = 'ArrowDown';
+        }
+
+        //if(keyCode == 0)
+        dir = DIRECTIONS[direction];
       })
-
-      // eigenvalue_real r.eigenvalue_imag => phase of eigenvalue
-      phase = math.atan2(r.eigenvalue_imag, r.eigenvalue_real) * 180 / math.PI;
-      phase += 90 * key;
-      phase %= 360;
-      // dir = phase * i^key 
-      console.log(phase);
-      // console.log
-      // Map to key code
-      if ( phase >= 315 || phase < 45) {
-        direction = 'ArrowRight';
-      } else if (phase >= 45 && phase < 135) {
-        direction = 'ArrowUp';
-      } else if (phase >= 135 && phase < 225) {
-        direction = 'ArrowLeft';
-      } else if (phase >= 225 && phase < 315) {
-        direction = 'ArrowDown';
-      }
-
-      //if(keyCode == 0)
-      dir = DIRECTIONS[direction];
-
-      //fetch new matrix and vector
-      //set new matrix and vector graphics
-      //store them in a global variable here for the next keypress
     } else {
       return;
     }
