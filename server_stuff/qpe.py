@@ -36,7 +36,7 @@ def return_direction(U_circuit, D_circuit):
     n_shots = 100
     result = backend.run_circuit(compiled_circ, n_shots)
     dir_dict = {(0,0):'right', (1,0):'up', (0,1):'left', (1,1):'down'}
-    print(dir_dict[result.get_counts().most_common(1)[0][0]])
+    return dir_dict[result.get_counts().most_common(1)[0][0]]
     #render_circuit_jupyter(QPE)
 
 def get_stuff():
