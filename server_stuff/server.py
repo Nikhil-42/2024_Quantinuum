@@ -4,6 +4,7 @@ import numpy as np
 from fastapi.staticfiles import StaticFiles
 from scipy.stats import unitary_group
 import generate_seed
+from BachSphere import composition
 
 app = FastAPI()
 
@@ -54,7 +55,7 @@ async def generate_matrix():
 	the_matrix_parts = {"real_part": the_matrix.real.tolist(),
 	'imag_part':the_matrix.imag.tolist(),
 	'eigenvalue_real':eigenvalue.real,
-	'eigenvalue_real':eigenvalue.imag,
+	'eigenvalue_imag':eigenvalue.imag,
 	'eigenvector_real':eigenvector.real.tolist(),
 	'eigenvector_imag':eigenvector.imag.tolist()}
 	print(f'Sending the random matrix: {the_matrix_parts}')
@@ -70,3 +71,15 @@ async def calculate_eigenvalues(matrix: matrix_json):
 async def random_numbers():
 	return {"numbers": generate_seed.generate_numbers()}
 
+
+@app.post("/get_music/")
+async def get_music():
+
+	quantum_seeds = [1123,213,45,73,134]
+	print(quantum_seeds)
+
+	comp = composition(seeds = quantum_seeds)
+	comp.show()
+	# comp.show('midi')
+	comp.write('midi', fp='/tmp/output_file.mid')
+	return FileResponse('/tmp/output_file.mid')

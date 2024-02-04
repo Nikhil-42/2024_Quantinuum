@@ -389,17 +389,3 @@ def composition(seeds=None, max_chords = 100, extra_seeds = True):
             break
     print(chords, bass_notes)
     return stream.Stream([chords, bass_notes])
-
-
-
-### TODO####
-# Get random quantum seeds CHANGE THE LIST BELOW#
-
-
-quantum_seeds = [1123,213,45,73,134]
-print(quantum_seeds)
-
-comp = composition(seeds = quantum_seeds)
-comp.show()
-# comp.show('midi')
-comp.write('midi', fp='output_file.mid')

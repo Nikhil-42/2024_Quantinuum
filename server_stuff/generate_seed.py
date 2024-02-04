@@ -1,6 +1,4 @@
 from pytket.circuit import Circuit
-from pytket.circuit.display import render_circuit_jupyter
-from datetime import datetime
 
 # Create Circuit
 qc_seed = Circuit(16)
