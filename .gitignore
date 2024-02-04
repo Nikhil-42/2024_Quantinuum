@@ -1,8 +1,10 @@
+.idea
 **/node_modules
 **/dist
 **/build
 **/.cache
 **/.venv
+server_stuff/venv/
 .DS_STORE
 .ipynb_checkpoints
 *.qasm
